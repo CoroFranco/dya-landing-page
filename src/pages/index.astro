@@ -13,16 +13,17 @@ import { gsap } from "gsap";
 				<div class="line bg-white w-12 h-2 transition-all duration-300"></div>
 			</div>
 			<nav class="h-0 md:h-auto w-full overflow-hidden transition-all duration-300 ease-in-out px-6 md:p-0"> 
-				<ul class="w-full flex md:place-items-center md:flex-row flex-wrap justify-center flex-col text-white md:justify-around md:px-10 gap-2 md:gap-8 md:py-2 [&>div>li>a:hover]:text-orange-500 [&>div>li>a]:md:px-3 [&>div>li>a]:md:py-2 [&>div>li>a]:rounded-md [&>div>li>a]:text-lg [&>div>li>a]:font-medium [&>div>li>a]:no-underline [&>div>li>a]:transition-all [&>div>li>a]:duration-300">
-					<a href="/">
-						<img class="" src="/src/pages/logo.svg" alt="Logo">
+				<div class="w-full flex md:place-items-center md:flex-row flex-wrap justify-center flex-col text-white md:justify-around md:px-10 gap-2 md:gap-8 md:py-2 [&>ul>li>a:hover]:text-orange-500 [&>ul>li>a]:md:px-3 [&>ul>li>a]:md:py-2 [&>ul>li>a]:rounded-md [&>ul>li>a]:text-lg [&>ul>li>a]:font-medium [&>ul>li>a]:no-underline [&>ul>li>a]:transition-all [&>ul>li>a]:duration-300">
+					<a id="homeIcon" href="/">
+						<img class="" src="/img/logo.svg" alt="Logo">
 					</a>
-					<div class="block md:flex">
-						<li><a href="/">Inicio</a></li>
-						<li><a href="/proyectos">Proyectos</a></li>
-						<li><a href="/contacto">Contacto</a></li>
-					</div>
-				</ul>
+					<ul class="block md:flex">
+							<li><a href="/">Inicio</a></li>
+							<li><a href="/proyectos">Proyectos</a></li>
+							<li><a href="/contacto">Contacto</a></li>
+						</ul>
+
+				</div>
 			</nav>
 		</header>
 
@@ -36,7 +37,7 @@ import { gsap } from "gsap";
 							['Pintura', 'Estuco', 'Marmolizado', 'Enchape', 'Drywall'].map((item, index) => (
 								<div class="swiper-slide max-h-[500px] relative bg-[#bbb] flex flex-col justify-center place-items-center overflow-hidden">
 									<h2 class="absolute top-10 w-full text-center text-4xl z-30 font-bold text-orange-500">{item}</h2>
-									<img src={`/src/pages/${item}.jpg`} alt={`Imagen de ${item}`} class="inset-0 object-cover w-full h-auto" />
+									<img src={`/img/${item}.jpg`} alt={`Imagen de ${item}`} class="inset-0 object-cover w-full h-auto" />
 									<div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-4 transform translate-y-full  slideInfo">
 										<p class="text-sm max-w-[600px] m-auto text-wrap text-center">
 											Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum natus sint tempore non libero aliquid dolorum labore asperiores, obcaecati iure iste, ea voluptatibus? Ipsum accusantium similique repudiandae voluptas soluta fuga!
@@ -61,46 +62,58 @@ import { gsap } from "gsap";
 		import 'swiper/css';
 		import 'swiper/css/pagination';
 		import 'swiper/css/effect-coverflow';
-
+	
 		document.addEventListener('DOMContentLoaded', () => {
-			const swiper = new Swiper('.swiper', {
-				modules: [Pagination, Autoplay, EffectCoverflow],
-				loop: true,
-				slidesPerView: 'auto',
-				centeredSlides: true,
-				spaceBetween: 30,
-				autoplay: {
-					delay: 3000,
-					disableOnInteraction: false,
-				},
-				pagination: {
-					el: '.swiper-pagination',
-					clickable: true,
-				},
-				effect: 'coverflow',
-				coverflowEffect: {
-					rotate: 0,
-					stretch: 0,
-					depth: 100,
-					modifier: 2,
-					slideShadows: false,
-				},
-				breakpoints: {
-					320: {
-						slidesPerView: 1.2,
-					},
-					640: {
-						slidesPerView: 1.5,
-					},
-					1024: {
-						slidesPerView: 1.8,
-					}
-				}
+			const homeIcon = document.getElementById("homeIcon");
+			homeIcon.addEventListener("click", (event) => {
+				event.preventDefault(); // Prevenir la navegación por defecto
 			});
 
+			let swiper;
+	
+			const initSwiper = () => {
+				// Inicializa el Swiper
+				swiper = new Swiper('.swiper', {
+					modules: [Pagination, Autoplay, EffectCoverflow],
+					loop: true,
+					slidesPerView: 'auto',
+					centeredSlides: true,
+					spaceBetween: 30,
+					autoplay: {
+						delay: 3000,
+						disableOnInteraction: false,
+					},
+					pagination: {
+						el: '.swiper-pagination',
+						clickable: true,
+					},
+					effect: 'coverflow',
+					coverflowEffect: {
+						rotate: 0,
+						stretch: 0,
+						depth: 100,
+						modifier: 2,
+						slideShadows: false,
+					},
+					breakpoints: {
+						320: {
+							slidesPerView: 1.2,
+						},
+						640: {
+							slidesPerView: 1.5,
+						},
+						1024: {
+							slidesPerView: 1.8,
+						}
+					}
+				});
+			};
+	
+			initSwiper(); // Inicializa el carrusel al cargar el DOM
+	
 			const slideInfo = document.querySelectorAll('.slideInfo');
 			const swiperSlides = document.querySelectorAll('.swiper-slide');
-
+	
 			const showSlideInfo = (index) => {
 				gsap.to(slideInfo[index], {
 					y: 0,
@@ -108,7 +121,7 @@ import { gsap } from "gsap";
 					ease: 'power2.out'
 				});
 			};
-
+	
 			const hideSlideInfo = (index) => {
 				gsap.to(slideInfo[index], {
 					y: '100%',
@@ -116,7 +129,7 @@ import { gsap } from "gsap";
 					ease: 'power2.in'
 				});
 			};
-
+	
 			swiperSlides.forEach((slide, index) => {
 				slide.addEventListener('mouseenter', () => {
 					if (slide.classList.contains('swiper-slide-active')) {
@@ -127,7 +140,7 @@ import { gsap } from "gsap";
 					hideSlideInfo(index);
 				});
 			});
-
+	
 			swiper.on('slideChangeTransitionEnd', () => {
 				swiperSlides.forEach((slide, index) => {
 					if (slide.classList.contains('swiper-slide-active')) {
@@ -139,93 +152,105 @@ import { gsap } from "gsap";
 					}
 				});
 			});
-		
-
-		const hamburguer = document.getElementById("hamburguer");
-		const lines = document.querySelectorAll(".line");
-		const nav = document.querySelector("nav");
-		let isMenuOpen = false;
-
-		function toggleMenu() {
-			const navHeight = nav.scrollHeight;
-			isMenuOpen = !isMenuOpen;
-
-			gsap.to(nav, {
-				height: isMenuOpen ? navHeight : 0,
-				duration: 0.5,
-				ease: "none",
-			});
-
-			gsap.to(lines[0], { y: isMenuOpen ? 12 : 0, rotate: isMenuOpen ? 45 : 0, duration: 0.3 });
-			gsap.to(lines[1], { opacity: isMenuOpen ? 0 : 1, duration: 0.3 });
-			gsap.to(lines[2], { y: isMenuOpen ? -12 : 0, rotate: isMenuOpen ? -45 : 0, duration: 0.3 });
-		}
-
-		hamburguer.addEventListener("click", toggleMenu);
-
-		function handleResize() {
-			if (window.innerWidth >= 768) {
-				nav.style.height = "auto";
-				isMenuOpen = false;
-			} else if (!isMenuOpen) {
-				nav.style.height = "0";
+	
+			const hamburguer = document.getElementById("hamburguer");
+			const lines = document.querySelectorAll(".line");
+			const nav = document.querySelector("nav");
+			let isMenuOpen = false;
+	
+			function toggleMenu() {
+				const navHeight = nav.scrollHeight;
+				isMenuOpen = !isMenuOpen;
+	
+				gsap.to(nav, {
+					height: isMenuOpen ? navHeight : 0,
+					duration: 0.5,
+					ease: "none",
+				});
+	
+				gsap.to(lines[0], { y: isMenuOpen ? 12 : 0, rotate: isMenuOpen ? 45 : 0, duration: 0.3 });
+				gsap.to(lines[1], { opacity: isMenuOpen ? 0 : 1, duration: 0.3 });
+				gsap.to(lines[2], { y: isMenuOpen ? -12 : 0, rotate: isMenuOpen ? -45 : 0, duration: 0.3 });
 			}
-		}
-
-		window.addEventListener("resize", handleResize);
-		handleResize();
-
-		const title = document.getElementById("title");
-		const subTitle = document.getElementById("subTitle");
-		const descubreMasBtn = document.getElementById("descubreMasBtn");
-
-		gsap.fromTo('.swiper', {
-			opacity: 0,
-		}, 
-		{
-			opacity: 1, 
-			delay: 1
-		})
-
-		gsap.fromTo(descubreMasBtn, {
-			opacity: 0,
-			y: 50, 
-			rotate: -20 
-		}, 
-		{
-			opacity: 1,
-			y: 0, 
-			rotate: 0, 
-			duration: 2, 
-			ease: "elastic.out(1, 0.6)", 
-			delay: 1 
-		}); 
-
-		gsap.fromTo(title, {
-			opacity: 0,
-			y: -30,
-			stagger: 0.1
-		},
-		{
-			duration: 1.5,
-			opacity: 1,
-			y: 0,
-			stagger: 0.1
+	
+			hamburguer.addEventListener("click", toggleMenu);
+	
+			function handleResize() {
+				if (window.innerWidth >= 768) {
+					nav.style.height = "auto";
+					isMenuOpen = false;
+				} else if (!isMenuOpen) {
+					nav.style.height = "0";
+				}
+			}
+	
+			window.addEventListener("resize", handleResize);
+			handleResize();
+	
+			const title = document.getElementById("title");
+			const subTitle = document.getElementById("subTitle");
+			const descubreMasBtn = document.getElementById("descubreMasBtn");
+	
+			gsap.fromTo('.swiper', {
+				opacity: 0,
+			}, 
+			{
+				opacity: 1, 
+				delay: 1
+			});
+	
+			gsap.fromTo(descubreMasBtn, {
+				opacity: 0,
+				y: 50, 
+				rotate: -20 
+			}, 
+			{
+				opacity: 1,
+				y: 0, 
+				rotate: 0, 
+				duration: 2, 
+				ease: "elastic.out(1, 0.6)", 
+				delay: 1 
+			}); 
+	
+			gsap.fromTo(title, {
+				opacity: 0,
+				y: -30,
+				stagger: 0.1
+			},
+			{
+				duration: 1.5,
+				opacity: 1,
+				y: 0,
+				stagger: 0.1
+			});
+	
+			gsap.fromTo(subTitle, {
+				opacity: 0,
+				y: 30,
+				stagger: 0.1
+			},
+			{
+				duration: 1.5,
+				opacity: 1,
+				y: 0,
+				stagger: 0.1
+			});
+	
+			// Manejar el clic en el logo
+			const logoLink = document.querySelector('a[href="/"]');
+	
+			if (logoLink) {
+				logoLink.addEventListener('click', (event) => {
+					event.preventDefault(); // Prevenir la navegación por defecto
+					// Re-inicializar el carrusel
+					swiper.destroy(); // Destruir el carrusel actual
+					initSwiper(); // Inicializa el carrusel de nuevo
+				});
+			}
 		});
-
-		gsap.fromTo(subTitle, {
-			opacity: 0,
-			y: 30,
-			stagger: 0.1
-		},
-		{
-			duration: 1.5,
-			opacity: 1,
-			y: 0,
-			stagger: 0.1
-		});
-	});
 	</script>
+	
 </Layout>
 
 <style>
