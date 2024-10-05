@@ -1,31 +1,13 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { gsap } from "gsap";
+import HeaderNav from '../components/headerNav.astro';
 ---
 
 <Layout title="Astro Starter Kit">
-	<main class="relative bg-gradient-to-br from-indigo-900 to-orange-600 min-h-screen flex flex-col justify-center items-center overflow-hidden">
-		<div class="absolute block inset-0 bg-gradient-to-br from-indigo-400 to-orange-400 opacity-30 animate-gradient-x"></div>
-		<header class="gap-6 absolute top-0 left-0 right-0 bg-black bg-opacity-30 z-40 md:bg-opacity-20 backdrop-filter backdrop-blur-lg flex px-6 py-2 md:p-0">
-			<div id="hamburguer" class="cursor-pointer z-10 flex flex-col max-h-fit md:hidden">
-				<div class="line bg-white w-12 h-2 mb-1 transition-all duration-300"></div>
-				<div class="line bg-white w-12 h-2 mb-1 transition-all duration-300"></div>
-				<div class="line bg-white w-12 h-2 transition-all duration-300"></div>
-			</div>
-			<nav class="h-0 md:h-auto w-full overflow-hidden transition-all duration-300 ease-in-out px-6 md:p-0"> 
-				<div class="w-full flex md:place-items-center md:flex-row flex-wrap justify-center flex-col text-white md:justify-around md:px-10 gap-2 md:gap-8 md:py-2 [&>ul>li>a:hover]:text-orange-500 [&>ul>li>a]:md:px-3 [&>ul>li>a]:md:py-2 [&>ul>li>a]:rounded-md [&>ul>li>a]:text-lg [&>ul>li>a]:font-medium [&>ul>li>a]:no-underline [&>ul>li>a]:transition-all [&>ul>li>a]:duration-300">
-					<a id="homeIcon" href="/">
-						<img class="" src="/img/logo.svg" alt="Logo">
-					</a>
-					<ul class="block md:flex">
-							<li><a href="/">Inicio</a></li>
-							<li><a href="/proyectos">Proyectos</a></li>
-							<li><a href="/contacto">Contacto</a></li>
-						</ul>
+	<main class="relative bg-gradient-to-br from-[#222] to-[#fff] min-h-screen flex flex-col justify-center items-center overflow-hidden animate-gradient-x">
 
-				</div>
-			</nav>
-		</header>
+		<HeaderNav />
 
 		<section class="container mt-10 md:m-0 text-center flex flex-col items-center justify-center gap-8 z-10"> 
 			<h1 id="title" class="text-white flex-wrap text-5xl md:text-6xl font-bold leading-tight">Construimos el Futuro</h1>
@@ -35,7 +17,7 @@ import { gsap } from "gsap";
 					<div class="swiper-wrapper">
 						{
 							['Pintura', 'Estuco', 'Marmolizado', 'Enchape', 'Drywall'].map((item, index) => (
-								<div class="swiper-slide max-h-[500px] relative bg-[#bbb] flex flex-col justify-center place-items-center overflow-hidden">
+								<div class="swiper-slide max-h-[500px] relative flex flex-col justify-center place-items-center overflow-hidden shadow-md">
 									<h2 class="absolute top-10 w-full text-center text-4xl z-30 font-bold text-orange-500">{item}</h2>
 									<img src={`/img/${item}.jpg`} alt={`Imagen de ${item}`} class="inset-0 object-cover w-full h-auto" />
 									<div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-4 transform translate-y-full  slideInfo">
@@ -62,194 +44,218 @@ import { gsap } from "gsap";
 		import 'swiper/css';
 		import 'swiper/css/pagination';
 		import 'swiper/css/effect-coverflow';
-	
-		document.addEventListener('DOMContentLoaded', () => {
-			const homeIcon = document.getElementById("homeIcon");
-			homeIcon.addEventListener("click", (event) => {
-				event.preventDefault(); // Prevenir la navegación por defecto
+		
+		document.addEventListener('astro:page-load', () => {
+		  let swiper;
+		
+		  const initSwiper = () => {
+			if (swiper) {
+			  swiper.destroy(true, true);
+			}
+			swiper = new Swiper('.swiper', {
+			  modules: [Pagination, Autoplay, EffectCoverflow],
+			  loop: true,
+			  slidesPerView: 'auto',
+			  centeredSlides: true,
+			  spaceBetween: 30,
+			  autoplay: {
+				delay: 3000,
+				disableOnInteraction: false,
+			  },
+			  pagination: {
+				el: '.swiper-pagination',
+				clickable: true,
+			  },
+			  effect: 'coverflow',
+			  coverflowEffect: {
+				rotate: 0,
+				stretch: 0,
+				depth: 100,
+				modifier: 2,
+				slideShadows: false,
+			  },
+			  breakpoints: {
+				320: {
+				  slidesPerView: 1.2,
+				},
+				640: {
+				  slidesPerView: 1.5,
+				},
+				1024: {
+				  slidesPerView: 1.8,
+				}
+			  }
 			});
-
-			let swiper;
-	
-			const initSwiper = () => {
-				// Inicializa el Swiper
-				swiper = new Swiper('.swiper', {
-					modules: [Pagination, Autoplay, EffectCoverflow],
-					loop: true,
-					slidesPerView: 'auto',
-					centeredSlides: true,
-					spaceBetween: 30,
-					autoplay: {
-						delay: 3000,
-						disableOnInteraction: false,
-					},
-					pagination: {
-						el: '.swiper-pagination',
-						clickable: true,
-					},
-					effect: 'coverflow',
-					coverflowEffect: {
-						rotate: 0,
-						stretch: 0,
-						depth: 100,
-						modifier: 2,
-						slideShadows: false,
-					},
-					breakpoints: {
-						320: {
-							slidesPerView: 1.2,
-						},
-						640: {
-							slidesPerView: 1.5,
-						},
-						1024: {
-							slidesPerView: 1.8,
-						}
-					}
-				});
-			};
-	
-			initSwiper(); // Inicializa el carrusel al cargar el DOM
-	
+		
 			const slideInfo = document.querySelectorAll('.slideInfo');
 			const swiperSlides = document.querySelectorAll('.swiper-slide');
-	
+		
 			const showSlideInfo = (index) => {
-				gsap.to(slideInfo[index], {
-					y: 0,
-					duration: 0.3,
-					ease: 'power2.out'
-				});
+			  gsap.to(slideInfo[index], {
+				y: 0,
+				duration: 0.3,
+				ease: 'power2.out'
+			  });
 			};
-	
+		
 			const hideSlideInfo = (index) => {
-				gsap.to(slideInfo[index], {
-					y: '100%',
-					duration: 0.3,
-					ease: 'power2.in'
-				});
+			  gsap.to(slideInfo[index], {
+				y: '100%',
+				duration: 0.3,
+				ease: 'power2.in'
+			  });
 			};
-	
+		
 			swiperSlides.forEach((slide, index) => {
-				slide.addEventListener('mouseenter', () => {
-					if (slide.classList.contains('swiper-slide-active')) {
-						showSlideInfo(index);
-					}
-				});
-				slide.addEventListener('mouseleave', () => {
-					hideSlideInfo(index);
-				});
-			});
-	
-			swiper.on('slideChangeTransitionEnd', () => {
-				swiperSlides.forEach((slide, index) => {
-					if (slide.classList.contains('swiper-slide-active')) {
-						slide.addEventListener('mouseenter', () => showSlideInfo(index));
-						slide.addEventListener('mouseleave', () => hideSlideInfo(index));
-					} else {
-						slide.removeEventListener('mouseenter', () => showSlideInfo(index));
-						slide.removeEventListener('mouseleave', () => hideSlideInfo(index));
-					}
-				});
-			});
-	
-			const hamburguer = document.getElementById("hamburguer");
-			const lines = document.querySelectorAll(".line");
-			const nav = document.querySelector("nav");
-			let isMenuOpen = false;
-	
-			function toggleMenu() {
-				const navHeight = nav.scrollHeight;
-				isMenuOpen = !isMenuOpen;
-	
-				gsap.to(nav, {
-					height: isMenuOpen ? navHeight : 0,
-					duration: 0.5,
-					ease: "none",
-				});
-	
-				gsap.to(lines[0], { y: isMenuOpen ? 12 : 0, rotate: isMenuOpen ? 45 : 0, duration: 0.3 });
-				gsap.to(lines[1], { opacity: isMenuOpen ? 0 : 1, duration: 0.3 });
-				gsap.to(lines[2], { y: isMenuOpen ? -12 : 0, rotate: isMenuOpen ? -45 : 0, duration: 0.3 });
-			}
-	
-			hamburguer.addEventListener("click", toggleMenu);
-	
-			function handleResize() {
-				if (window.innerWidth >= 768) {
-					nav.style.height = "auto";
-					isMenuOpen = false;
-				} else if (!isMenuOpen) {
-					nav.style.height = "0";
+			  slide.addEventListener('mouseenter', () => {
+				if (slide.classList.contains('swiper-slide-active')) {
+				  showSlideInfo(index);
 				}
-			}
-	
-			window.addEventListener("resize", handleResize);
-			handleResize();
-	
+			  });
+			  slide.addEventListener('mouseleave', () => {
+				hideSlideInfo(index);
+			  });
+			});
+		
+			swiper.on('slideChangeTransitionEnd', () => {
+			  swiperSlides.forEach((slide, index) => {
+				if (slide.classList.contains('swiper-slide-active')) {
+				  slide.addEventListener('mouseenter', () => showSlideInfo(index));
+				  slide.addEventListener('mouseleave', () => hideSlideInfo(index));
+				} else {
+				  slide.removeEventListener('mouseenter', () => showSlideInfo(index));
+				  slide.removeEventListener('mouseleave', () => hideSlideInfo(index));
+				}
+			  });
+			});
+		  };
+		
+		  const initAnimations = () => {
+			gsap.fromTo('.swiper', {
+			  opacity: 0,
+			}, 
+			{
+			  opacity: 1, 
+			  delay: 0.5
+			});
+		
 			const title = document.getElementById("title");
 			const subTitle = document.getElementById("subTitle");
 			const descubreMasBtn = document.getElementById("descubreMasBtn");
-	
-			gsap.fromTo('.swiper', {
-				opacity: 0,
-			}, 
-			{
-				opacity: 1, 
-				delay: 1
-			});
-	
+		
 			gsap.fromTo(descubreMasBtn, {
-				opacity: 0,
-				y: 50, 
-				rotate: -20 
+			  opacity: 0,
+			  y: 50, 
+			  rotate: -20 
 			}, 
 			{
-				opacity: 1,
-				y: 0, 
-				rotate: 0, 
-				duration: 2, 
-				ease: "elastic.out(1, 0.6)", 
-				delay: 1 
+			  opacity: 1,
+			  y: 0, 
+			  rotate: 0, 
+			  duration: 2, 
+			  ease: "elastic.out(1, 0.6)", 
+			  delay: 1 
 			}); 
-	
+		
 			gsap.fromTo(title, {
-				opacity: 0,
-				y: -30,
-				stagger: 0.1
+			  opacity: 0,
+			  y: -30,
+			  stagger: 0.1
 			},
 			{
-				duration: 1.5,
-				opacity: 1,
-				y: 0,
-				stagger: 0.1
+			  duration: 1.5,
+			  opacity: 1,
+			  y: 0,
+			  stagger: 0.1
 			});
-	
+		
 			gsap.fromTo(subTitle, {
-				opacity: 0,
-				y: 30,
-				stagger: 0.1
+			  opacity: 0,
+			  y: 30,
+			  stagger: 0.1
 			},
 			{
-				duration: 1.5,
-				opacity: 1,
-				y: 0,
-				stagger: 0.1
+			  duration: 1.5,
+			  opacity: 1,
+			  y: 0,
+			  stagger: 0.1
 			});
-	
-			// Manejar el clic en el logo
-			const logoLink = document.querySelector('a[href="/"]');
-	
-			if (logoLink) {
-				logoLink.addEventListener('click', (event) => {
-					event.preventDefault(); // Prevenir la navegación por defecto
-					// Re-inicializar el carrusel
-					swiper.destroy(); // Destruir el carrusel actual
-					initSwiper(); // Inicializa el carrusel de nuevo
-				});
+		  };
+		
+		  const initAll = () => {
+			initSwiper();
+			initAnimations();
+		  };
+		
+		  initAll();
+		
+		  // Manejar la navegación interna
+		  document.addEventListener('astro:after-swap', initAll);
+		
+		  // Manejar la visibilidad de la página
+		  document.addEventListener('visibilitychange', () => {
+			if (document.visibilityState === 'visible') {
+			  initAll();
+			} else {
+			  if (swiper) {
+				swiper.autoplay.stop();
+			  }
 			}
+		  });
+		
+		  // Configurar el menú hamburguesa
+		  const hamburguer = document.getElementById("hamburguer");
+		  const lines = document.querySelectorAll(".line");
+		  const nav = document.querySelector("nav");
+		  let isMenuOpen = false;
+		
+		  function toggleMenu() {
+			const navHeight = nav.scrollHeight;
+			isMenuOpen = !isMenuOpen;
+		
+			gsap.to(nav, {
+			  height: isMenuOpen ? navHeight : 0,
+			  duration: 0.5,
+			  ease: "none",
+			});
+		
+			gsap.to(lines[0], { y: isMenuOpen ? 12 : 0, rotate: isMenuOpen ? 45 : 0, duration: 0.3 });
+			gsap.to(lines[1], { opacity: isMenuOpen ? 0 : 1, duration: 0.3 });
+			gsap.to(lines[2], { y: isMenuOpen ? -12 : 0, rotate: isMenuOpen ? -45 : 0, duration: 0.3 });
+		  }
+		
+		  hamburguer.addEventListener("click", toggleMenu);
+		
+		  function handleResize() {
+			if (window.innerWidth >= 768) {
+			  nav.style.height = "auto";
+			  isMenuOpen = false;
+			} else if (!isMenuOpen) {
+			  nav.style.height = "0";
+			}
+		  }
+		
+		  window.addEventListener("resize", handleResize);
+		  handleResize();
+		
+		  // Prevenir la navegación por defecto en el icono de inicio
+		  const homeIcon = document.getElementById("homeIcon");
+		  homeIcon.addEventListener("click", (event) => {
+			event.preventDefault();
+		  });
+		
+		  // Manejar el clic en los enlaces de navegación
+		  const navLinks = document.querySelectorAll('nav a, a[href="/"]');
+		  navLinks.forEach(link => {
+			link.addEventListener('click', (event) => {
+			  if (link.getAttribute('href') === window.location.pathname) {
+				event.preventDefault();
+				initSwiper();
+			  }
+			});
+		  });
 		});
-	</script>
+		</script>
 	
 </Layout>
 
@@ -264,7 +270,7 @@ import { gsap } from "gsap";
 	}
 	.animate-gradient-x {
 		animation: gradient-x 10s ease infinite;
-		background-size: 800% 800%;
+		background-size: 400% 400%;
 	}
 	.swiper-slide {
 		display: flex;
