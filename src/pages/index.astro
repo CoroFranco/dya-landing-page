@@ -5,20 +5,20 @@ import HeaderNav from '../components/headerNav.astro';
 ---
 
 <Layout title="Astro Starter Kit">
-	<main class="relative bg-gradient-to-br from-[#222] to-[#fff] min-h-screen flex flex-col justify-center items-center overflow-hidden animate-gradient-x">
+	<main class="relative bg-gradient-to-br from-[#50483f] to-[#ff993f] min-h-screen flex flex-col justify-center items-center overflow-hidden animate-gradient-x">
 
 		<HeaderNav />
 
 		<section class="container mt-10 md:m-0 text-center flex flex-col items-center justify-center gap-8 z-10"> 
 			<h1 id="title" class="text-white flex-wrap text-5xl md:text-6xl font-bold leading-tight">Construimos el Futuro</h1>
-			<p id="subTitle" class="text-orange-100 text-xl md:text-2xl max-w-2xl">Innovación, Calidad y Sostenibilidad en cada proyecto</p>
+			<p id="subTitle" class="text-orange-300 text-xl md:text-2xl max-w-2xl">Innovación, Calidad y Sostenibilidad en cada proyecto</p>
 			<div class="swiper-container max-w-[1400px] w-[95%] relative z-10">
 				<div class="swiper max-h-[500px]">
 					<div class="swiper-wrapper">
 						{
 							['Pintura', 'Estuco', 'Marmolizado', 'Enchape', 'Drywall'].map((item, index) => (
 								<div class="swiper-slide max-h-[500px] relative flex flex-col justify-center place-items-center overflow-hidden shadow-md">
-									<h2 class="absolute top-10 w-full text-center text-4xl z-30 font-bold text-orange-500">{item}</h2>
+									<h2 class="absolute top-10 w-full text-center text-4xl z-30 font-bold text-orange-500 ">{item}</h2>
 									<img src={`/img/${item}.jpg`} alt={`Imagen de ${item}`} class="inset-0 object-cover w-full h-auto" />
 									<div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-4 transform translate-y-full  slideInfo">
 										<p class="text-sm max-w-[600px] m-auto text-wrap text-center">
@@ -33,7 +33,7 @@ import HeaderNav from '../components/headerNav.astro';
 				</div>
 			</div>
 
-			<a id="descubreMasBtn" class="py-3 px-6 rounded-full bg-white text-orange-500 font-semibold hover:bg-[#222] transition-colors duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-10 hover:transition-all hover:text-[#fff]" href="/">Descubre nuestros proyectos</a>
+			<a id="descubreMasBtn" class="py-3 px-6 rounded-full bg-white text-[#222] font-semibold hover:bg-[#222] transition-colors duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-10 hover:transition-all hover:text-[#fff]" href="/proyectos">Descubre nuestros proyectos</a>
 		</section>
 	</main>
 
@@ -270,7 +270,7 @@ import HeaderNav from '../components/headerNav.astro';
 	}
 	.animate-gradient-x {
 		animation: gradient-x 10s ease infinite;
-		background-size: 400% 400%;
+		background-size:900% 900%;
 	}
 	.swiper-slide {
 		display: flex;

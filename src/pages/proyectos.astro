@@ -5,8 +5,76 @@ import HeaderNav from '../components/headerNav.astro';
 ---
 
 <Layout title="Astro Starter Kit">
-	<main class="relative bg-gradient-to-br from-indigo-200 to-orange-200 min-h-screen flex flex-col justify-center items-center overflow-hidden animate-gradient-x">
-		<HeaderNav />
+	<main class="relative bg-gradient-to-br from-[#fffef9] to-[#fff] min-h-screen overflow-hidden animate-gradient-x">
 
+            <HeaderNav />
+            <section class="mb-10">
+                <div class="bg-[#2f2f2f] py-10 flex shadow-xl shadow-orange-200">
+
+                    <div class="container max-w-[1200px] m-auto md:min-h-[150px] flex flex-col place-items-start justify-end w-[95%] ">
+                        <h1 class="text-white text-6xl font-semibold py-3 border-b-2 mb-2 border-orange-500 w-fit ">Proyectos</h1>
+                    </div>
+                </div>
+                <div class="container max-w-[1200px] m-auto flex  justify-center  md:justify-end place-items-center gap-4 text-white w-[95%] md:translate-y-[-60px]">
+                    <p class="text-black text-xl font-semibold">Innovación, Calidad y Sostenibilidad en cada proyecto</p>
+                    <img src="/img/Enchape.jpg" alt="Proyectos" class="w-[700px] h-[350px]  border-[#222] md:border-[#e2e2e2] my-4 border-2 md:py-2 md:px-2" />
+        
+                </div>
+            </section>
+
+            <section class="container max-w-[1200px] m-auto">
+                <div>
+                    <ul class="flex flex-wrap gap-4 text-black justify-center text-2xl font-semibold [&>li]:py-2 [&>li]:md:px-4 [&>li:hover]:cursor-pointer [&>li]:transition-all [&>li]:duration-300 [&>li]:relative [&>li:after]:content-[''] [&>li:after]:absolute [&>li:after]:bottom-0 [&>li:after]:left-0 [&>li:after]:w-full [&>li:after]:h-[2px] [&>li:after]:bg-black [&>li:after]:opacity-0 [&>li:after]:transition-opacity [&>li:after]:duration-500 [&>li:hover:after]:opacity-100">
+                        <li class="">
+                            Pintura
+                        </li>
+                        <li class="">
+                            Estuco
+                        </li>
+                        <li class="">
+                            Marmolizado
+                        </li>
+                        <li class="">
+                            Enchape
+                        </li>
+                        <li class="">
+                            Drywall
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="mt-4 flex flex-col md:grid md:grid-cols-3 container w-[95%] max-w-[1200px] m-auto gap-2 text-white [&>div>img]:transition-all [&>div>img]:duration-500 [&>div>img:hover]:cursor-pointer [&>div>img:hover]:opacity-80 [&>div>img:hover]:transition-opacity [&>div>img:hover]:duration-500 ">
+                <div>
+                    <img src="/img/Marmolizado.jpg" alt="Marmolizado" class="" />
+                </div>
+                <div>
+                    <img src="/img/Marmolizado.jpg" alt="Marmolizado" class="" />
+                </div>
+                <div>
+                    <img src="/img/Marmolizado.jpg" alt="Marmolizado" class="" />
+                </div>
+                <div>
+                    <img src="/img/Marmolizado.jpg" alt="Marmolizado" class="" />
+                </div>
+                <div>
+                    <img src="/img/Marmolizado.jpg" alt="Marmolizado" class="" />
+                </div>
+                <div>
+                    <img src="/img/Enchape.jpg" alt="Enchape" class="" />
+                </div>
+                <div>
+                    <img src="/img/Enchape.jpg" alt="Enchape" class="" />
+                </div>
+                <div>
+                    <img src="/img/Enchape.jpg" alt="Enchape" class="" />
+                </div>
+                <div>
+                    <img src="/img/Enchape.jpg" alt="Enchape" class="" />
+                </div>
+                <div>
+                    <img src="/img/Enchape.jpg" alt="Enchape" class="" />
+                </div>
+            </section>
 
     <main />
